@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -39,6 +39,7 @@ jobs:
       - name: Run Docker container
         run: |
           mkdir -p docker_output
+          chmod 777 docker_output
           docker run --rm \
             -v "${{ github.workspace }}/docker_output:/app/qr_codes" \
             qr-code-generator-app \
@@ -46,4 +47,5 @@ jobs:
 
       - name: Verify Docker-generated QR code
         run: |
+          ls -la docker_output
           test -n "$(find docker_output -name '*.png' -print -quit)"
