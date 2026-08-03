@@ -1,0 +1,14 @@
+services:
+  qr_code_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: qr-code-generator-app
+    container_name: qr-generator-compose
+    environment:
+      QR_CODE_DIR: qr_codes
+      FILL_COLOR: red
+      BACK_COLOR: white
+    volumes:
+      - ./qr_codes:/app/qr_codes
+    command: ["--url", "https://www.njit.edu"]
